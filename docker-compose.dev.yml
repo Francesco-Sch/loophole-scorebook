@@ -1,0 +1,21 @@
+services:
+  lhscr-frontend:
+    extends:
+      file: docker-compose.yml
+      service: lhscr-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+
+  lhscr-backend:
+    extends:
+      file: docker-compose.yml
+      service: lhscr-backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      target: development
