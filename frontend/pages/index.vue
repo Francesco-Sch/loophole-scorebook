@@ -2,7 +2,7 @@
 
 <template>
 	<div>
-		<p>Upload file...</p>
+		<FileUpload />
 	</div>
 </template>
 
