@@ -14,4 +14,7 @@ export default defineNuxtConfig({
 		"@pinia/nuxt",
 		"nuxt-icon",
 	],
+	ui: {
+		icons: ["octicon"],
+	},
 });
