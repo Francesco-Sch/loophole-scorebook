@@ -1,19 +1,28 @@
 <script setup lang="ts">
-function uploadFile(event: Event) {
+async function uploadFile(event: Event) {
 	const target = event.target as HTMLInputElement;
-	const file = target.files?.[0];
-	if (!file) return;
+	const files = target.files;
+
+	if (!files || files.length === 0) {
+		return;
+	}
 
 	const formData = new FormData();
-	formData.append("file", file);
+	for (let i = 0; i < files.length; i++) {
+		formData.append("files", files[i]);
+	}
 
-	fetch("/api/upload", {
-		method: "POST",
-		body: formData,
-	})
-		.then((response) => response.json())
-		.then((data) => console.log(data))
-		.catch((error) => console.error(error));
+	// Send the files to the backend
+	try {
+		const response = await $fetch("/api/upload/pdf", {
+			method: "POST",
+			body: formData,
+		});
+
+		console.log(response);
+	} catch (error) {
+		console.error(error);
+	}
 }
 </script>
 
@@ -29,6 +38,7 @@ function uploadFile(event: Event) {
 				type="file"
 				@change="uploadFile"
 				accept=".pdf"
+				multiple="true"
 				class="w-0 overflow-hidden"
 			/>
 			Choose a file
