@@ -25,6 +25,9 @@ async function uploadFile(event: Event) {
 
 		console.log(response);
 
+		// Clear the input field
+		target.value = "";
+
 		// Trigger a success or error message
 		// @ts-ignore
 		if (response.success === true) {
@@ -34,13 +37,10 @@ async function uploadFile(event: Event) {
 			setTimeout(() => {
 				uploadSuccess.value = false;
 			}, 3000);
-
-			// Clear the input field
-			target.value = "";
 		} else {
 			uploadError.value = true;
 
-			// Wait for 3 seconds and then hide the success message
+			// Wait for 3 seconds and then hide the error message
 			setTimeout(() => {
 				uploadError.value = false;
 			}, 3000);
