@@ -19,3 +19,13 @@ services:
       context: ./backend
       dockerfile: Dockerfile
       target: development
+
+  lhscr-vector-db:
+    extends:
+      file: docker-compose.yml
+      service: lhscr-vector-db
+
+configs:
+  qdrant_config:
+    content: |
+      log_level: DEBUG

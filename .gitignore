@@ -25,3 +25,6 @@ logs
 
 # Python cache
 __pycache__
+
+# Vector DB
+database/data

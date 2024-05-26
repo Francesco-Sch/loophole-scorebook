@@ -1,5 +1,6 @@
 services:
   lhscr-frontend:
+    container_name: lhscr-frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -8,9 +9,32 @@ services:
       - "3000:3000"
 
   lhscr-backend:
+    container_name: lhscr-backend
     build:
       context: ./backend
       dockerfile: Dockerfile
       target: production
     ports:
       - "8080:8080"
+
+  lhscr-vector-db:
+    container_name: lhscr-vector-db
+    image: qdrant/qdrant:latest
+    restart: always
+    ports:
+      - "6333:6333"
+      # - "6334:6334" # Needed for grpc
+    expose:
+      - 6333
+      # - 6334 # Needed for grpc
+      # - 6335 # Needed for distributed mode
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    volumes:
+      - ./database/data:/qdrant/storage:z
+
+configs:
+  qdrant_config:
+    content: |
+      log_level: INFO
