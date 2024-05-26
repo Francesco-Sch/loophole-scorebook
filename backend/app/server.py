@@ -1,8 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from langserve import add_routes
+from routers import database
 
 app = FastAPI()
+
+app.include_router(database.router)
 
 
 @app.get("/")
