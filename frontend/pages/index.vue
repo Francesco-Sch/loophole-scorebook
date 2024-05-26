@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import FileManager from "~/components/FileManager.vue";
+import { storeToRefs } from "pinia";
 
 const defaultStore = useDefaultStore();
 
@@ -8,6 +8,29 @@ function addFilesToStore(event) {
 
 	console.log("Files added to store");
 }
+
+async function embedFile(file) {
+	const response = await $fetch("/api/embed/pdf", {
+		method: "POST",
+		body: JSON.stringify({ file }),
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
+
+	console.log(response);
+}
+
+watch(
+	() => defaultStore.getFiles,
+	(files) => {
+		if (files.length > 0) {
+			files.forEach((file) => {
+				embedFile(file);
+			});
+		}
+	}
+);
 </script>
 
 <template>

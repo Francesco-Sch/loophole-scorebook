@@ -19,7 +19,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
       target: development
-
+    volumes:
+      - ./backend:/code
   lhscr-vector-db:
     extends:
       file: docker-compose.yml
