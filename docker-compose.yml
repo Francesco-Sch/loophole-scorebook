@@ -1,6 +1,6 @@
 services:
-  lhscr-frontend:
-    container_name: lhscr-frontend
+  frontend:
+    container_name: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -8,17 +8,20 @@ services:
     ports:
       - "3000:3000"
 
-  lhscr-backend:
-    container_name: lhscr-backend
+  backend:
+    container_name: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
       target: production
     ports:
       - "8080:8080"
+    environment:
+      - OLLAMA_MODEL=${OLLAMA_MODEL}
+      - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL}
 
-  lhscr-vector-db:
-    container_name: lhscr-vector-db
+  vector-db:
+    container_name: vector-db
     image: qdrant/qdrant:latest
     restart: always
     ports:

@@ -1,6 +1,7 @@
 import os
 
 from app.utils.embeddings_function import embeddings_function
+from langchain_community.chat_models import ChatOllama
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -18,7 +19,6 @@ vectorstore: VectorStore = Qdrant(
     collection_name=qdrant_collection,
     embeddings=embeddings_function,
 )
-
 
 retriever = vectorstore.as_retriever()
 
@@ -47,7 +47,7 @@ Instruction:"""
 # Instruction:"""
 custom_rag_prompt = PromptTemplate.from_template(template)
 
-llm = ChatOpenAI(model="gpt-4-turbo", temperature=0.75)
+llm = ChatOllama(model=os.environ.get("OLLAMA_MODEL"), temperature=0.75)
 
 
 def format_docs(docs):
