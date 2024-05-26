@@ -6,5 +6,10 @@ export default defineNuxtConfig({
 			"Jacquard 12": true,
 		},
 	},
-	modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts", "@vueuse/nuxt"],
+	modules: [
+		"@nuxtjs/tailwindcss",
+		"@nuxtjs/google-fonts",
+		"@vueuse/nuxt",
+		"nuxt-icon",
+	],
 });
