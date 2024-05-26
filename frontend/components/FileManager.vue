@@ -1,16 +1,22 @@
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 const defaultStore = useDefaultStore();
 
-const files = defaultStore.getFiles;
+const { files } = storeToRefs(defaultStore);
+
+function removeFile(newFilename) {
+	console.log("Removing file", newFilename);
+	defaultStore.removeFile(newFilename);
+}
 </script>
 
 <template>
-	<Accordion label="Rulesets" :processing="true">
+	<Accordion label="Rulesets" :processing="false">
 		<FileListItem
 			v-for="file in files"
-			:key="file.id"
-			:name="file.name"
-			:processing="file.processing"
+			:key="file.filepath"
+			:name="file.originalFilename"
+			@remove="removeFile(file.newFilename)"
 		/>
 	</Accordion>
 </template>

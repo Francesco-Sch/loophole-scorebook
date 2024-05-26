@@ -7,9 +7,10 @@ const props = defineProps({
 	},
 	processing: {
 		type: Boolean,
-		default: true,
+		default: false,
 	},
 });
+const emits = defineEmits(["remove"]);
 </script>
 
 <template>
@@ -31,6 +32,7 @@ const props = defineProps({
 			variant="ghost"
 			size="sm"
 			class="text-white hover:bg-black"
+			@click="$emit('remove')"
 		/>
 	</div>
 </template>

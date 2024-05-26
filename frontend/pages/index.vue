@@ -4,9 +4,7 @@ import FileManager from "~/components/FileManager.vue";
 const defaultStore = useDefaultStore();
 
 function addFilesToStore(event) {
-	defaultStore.$patch({
-		files: event.files,
-	});
+	defaultStore.setFiles(event.files);
 
 	console.log("Files added to store");
 }
