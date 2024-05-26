@@ -1,9 +1,25 @@
+import os
+
+from app.utils.embeddings_function import embeddings_function
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
+from langchain_core.vectorstores import VectorStore
 from langchain_qdrant import Qdrant
+from qdrant_client import QdrantClient
 
-# Retrieve and generate using the relevant snippets of the embedded documents.
+# Initialize the Qdrant Client
+# to connect to the Qdrant vector database
+qdrant_client = QdrantClient(url=os.environ.get("QDRANT_URL"), prefer_grpc=False)
+qdrant_collection = os.environ.get("QDRANT_COLLECTION")
+
+vectorstore: VectorStore = Qdrant(
+    client=qdrant_client,
+    collection_name=qdrant_collection,
+    embeddings=embeddings_function,
+)
+
+
 retriever = vectorstore.as_retriever()
 
 # Me

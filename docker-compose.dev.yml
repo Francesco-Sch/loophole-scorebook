@@ -25,6 +25,16 @@ services:
       file: docker-compose.yml
       service: lhscr-vector-db
 
+  inference:
+    extends:
+      file: docker-compose.yml
+      service: inference
+
+  embeddings:
+    extends:
+      file: docker-compose.yml
+      service: embeddings
+
 configs:
   qdrant_config:
     content: |

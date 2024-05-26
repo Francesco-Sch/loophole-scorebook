@@ -34,6 +34,32 @@ services:
     volumes:
       - ./database/data:/qdrant/storage:z
 
+  inference:
+    container_name: inference
+    build:
+      context: ./inference
+      dockerfile: Dockerfile
+    volumes:
+      - ./inference/data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=${OLLAMA_MODEL}
+      - OLLAMA_HOST=0.0.0.0:11000
+    ports:
+      - "11000:11000"
+
+  embeddings:
+    container_name: embeddings
+    build:
+      context: ./embeddings
+      dockerfile: Dockerfile
+    volumes:
+      - ./embeddings/data:/root/.ollama
+    environment:
+      - OLLAMA_MODEL=${OLLAMA_EMBEDDING_MODEL}
+      - OLLAMA_HOST=0.0.0.0:11001
+    ports:
+      - "11001:11001"
+
 configs:
   qdrant_config:
     content: |
