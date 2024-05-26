@@ -1,11 +1,22 @@
 import { readFiles } from "h3-formidable";
+import fs from "fs";
 
 export default defineEventHandler(async (event) => {
+	// Create upload directory
+	if (!fs.existsSync("/tmp/files")) {
+		fs.mkdir("/tmp/files", { recursive: true }, (err) => {
+			if (err) {
+				console.error("Error creating upload directory", err);
+			}
+		});
+	}
+
 	const { fields, files, form } = await readFiles(event, {
+		uploadDir: "/tmp/files", // Directory to save uploaded files
 		multiples: true, // Enable multiple file uploads
 	});
 
-	let uploadedFiles = files.files; // This will be an array if multiple files are uploaded
+	let uploadedFiles = files.files;
 
 	// Check if there are no files
 	if (!uploadedFiles || uploadedFiles.length === 0) {
