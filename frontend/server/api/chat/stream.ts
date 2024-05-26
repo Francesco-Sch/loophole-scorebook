@@ -12,9 +12,5 @@ export default defineEventHandler(async (event) => {
 		body: JSON.stringify({ input: { prompt: prompt } }),
 	});
 
-	if (response.body) {
-		return response.body;
-	} else {
-		return new Response("No data received from backend", { status: 502 });
-	}
+	return sendStream(event, response.body);
 });
