@@ -1,7 +1,11 @@
 <script setup lang="ts">
+import { sleep } from "../utils/sleep";
+
 // State
 const uploadSuccess = ref<boolean>(false);
 const uploadError = ref<boolean>(false);
+
+const emits = defineEmits(["success"]);
 
 async function uploadFile(event: Event) {
 	const target = event.target as HTMLInputElement;
@@ -23,8 +27,6 @@ async function uploadFile(event: Event) {
 			body: formData,
 		});
 
-		console.log(response);
-
 		// Clear the input field
 		target.value = "";
 
@@ -34,16 +36,18 @@ async function uploadFile(event: Event) {
 			uploadSuccess.value = true;
 
 			// Wait for 3 seconds and then hide the success message
-			setTimeout(() => {
-				uploadSuccess.value = false;
-			}, 3000);
+			await sleep(3000);
+			uploadSuccess.value = false;
+
+			// Emit the success event to the parent component
+			await sleep(500);
+			emits("success", response);
 		} else {
 			uploadError.value = true;
 
 			// Wait for 3 seconds and then hide the error message
-			setTimeout(() => {
-				uploadError.value = false;
-			}, 3000);
+			await sleep(3000);
+			uploadError.value = false;
 		}
 	} catch (error) {
 		console.error(error);
