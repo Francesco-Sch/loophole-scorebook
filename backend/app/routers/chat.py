@@ -1,6 +1,7 @@
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import PromptTemplate
 from langchain_core.runnables import RunnablePassthrough
+from langchain_qdrant import Qdrant
 
 # Retrieve and generate using the relevant snippets of the embedded documents.
 retriever = vectorstore.as_retriever()
