@@ -4,6 +4,7 @@ export default defineNuxtConfig({
 	googleFonts: {
 		families: {
 			"Jacquard 12": true,
+			"Xanh Mono": true,
 		},
 	},
 	modules: [

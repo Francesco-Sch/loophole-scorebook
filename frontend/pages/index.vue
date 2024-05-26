@@ -21,7 +21,7 @@ function addFilesToStore(event) {
 		<template v-else>
 			<p class="my-auto text-neutral-400 text-3xl">
 				<Icon name="svg-spinners:wind-toy" />
-				<span class="mx-4">Creating embeddings from PDFs...</span>
+				<span class="mx-4">Analyzing the ruleset...</span>
 				<Icon name="svg-spinners:wind-toy" />
 			</p>
 			<FileManager />
