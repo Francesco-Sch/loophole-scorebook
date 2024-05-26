@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import FileManager from "~/components/FileManager.vue";
-
 const defaultStore = useDefaultStore();
 
 function addFilesToStore(event) {
