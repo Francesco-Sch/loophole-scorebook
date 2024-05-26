@@ -47,7 +47,11 @@ Instruction:"""
 # Instruction:"""
 custom_rag_prompt = PromptTemplate.from_template(template)
 
-llm = ChatOllama(model=os.environ.get("OLLAMA_MODEL"), temperature=0.75)
+llm = ChatOllama(
+    base_url=os.environ.get("OLLAMA_URL"),
+    model=os.environ.get("OLLAMA_MODEL"),
+    temperature=0.75,
+)
 
 
 def format_docs(docs):
@@ -55,7 +59,8 @@ def format_docs(docs):
 
 
 rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
+    {"context": RunnablePassthrough(), "question": lambda x: x["prompt"]}
+    # {"context": {"context": retriever | format_docs}, "question": RunnablePassthrough()}
     | custom_rag_prompt
     | llm
     | StrOutputParser()

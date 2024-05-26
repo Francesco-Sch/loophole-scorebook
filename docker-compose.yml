@@ -7,6 +7,8 @@ services:
       target: production
     ports:
       - "3000:3000"
+    networks:
+      - app-network
 
   backend:
     container_name: backend
@@ -18,7 +20,10 @@ services:
       - "8080:8080"
     environment:
       - OLLAMA_MODEL=${OLLAMA_MODEL}
+      - OLLAMA_URL=${OLLAMA_URL}
       - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL}
+    networks:
+      - app-network
 
   vector-db:
     container_name: vector-db
@@ -36,6 +41,8 @@ services:
         target: /qdrant/config/production.yaml
     volumes:
       - ./database/data:/qdrant/storage:z
+    networks:
+      - app-network
 
   inference:
     container_name: inference
@@ -49,6 +56,8 @@ services:
       - OLLAMA_HOST=0.0.0.0:11000
     ports:
       - "11000:11000"
+    networks:
+      - app-network
 
   embeddings:
     container_name: embeddings
@@ -62,8 +71,14 @@ services:
       - OLLAMA_HOST=0.0.0.0:11001
     ports:
       - "11001:11001"
+    networks:
+      - app-network
 
 configs:
   qdrant_config:
     content: |
       log_level: INFO
+
+networks:
+  app-network:
+    driver: bridge
