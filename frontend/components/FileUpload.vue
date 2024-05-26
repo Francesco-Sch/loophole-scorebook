@@ -21,9 +21,7 @@ function uploadFile(event: Event) {
 	<div
 		class="flex flex-col justify-center items-center w-max p-12 border-2 border-black border-dotted"
 	>
-		<p class="text-neutral-400 mb-4">
-			Drag and drop your PDF here or click the button to browse.
-		</p>
+		<p class="text-neutral-400 mb-4">Upload your ruleset</p>
 		<label
 			class="p-2 border border-black rounded bg-black text-white hover:cursor-pointer"
 		>
