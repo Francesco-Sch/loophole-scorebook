@@ -28,3 +28,7 @@ __pycache__
 
 # Vector DB
 database/data
+
+# Ollama
+inference/data
+embeddings/data
