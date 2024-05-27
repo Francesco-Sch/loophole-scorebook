@@ -11,7 +11,7 @@ function removeFile(newFilename) {
 </script>
 
 <template>
-	<Accordion label="Rulesets" :processing="false">
+	<Accordion label="Rulesets" :processing="false" class="mt-auto">
 		<FileListItem
 			v-for="file in files"
 			:key="file.filepath"

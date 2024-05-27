@@ -67,11 +67,14 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="w-1/2">
-		<pre class="text-lg whitespace-pre-wrap">{{ score }}</pre>
+	<div class="w-1/2 max-h-[70%] flex flex-col overflow-hidden my-auto">
+		<pre
+			class="text-lg whitespace-pre-wrap overflow-auto flex-grow relative scrollbar"
+			>{{ score }}</pre
+		>
 		<UButton
 			variant="ghost"
-			class="text-lg text-black mt-5 p-0 hover:bg-transparent hover:underline"
+			class="text-lg text-black mt-7 p-0 hover:bg-transparent hover:underline"
 			icon="i-octicon-arrow-right-24"
 			trailing
 			@click="fetchScore(prompt.value)"
@@ -80,4 +83,9 @@ onMounted(() => {
 	</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.scrollbar {
+	scrollbar-color: #000000 transparent;
+	scrollbar-width: thin;
+}
+</style>
