@@ -1,31 +1,41 @@
-import fs from "fs";
-import FormData from "form-data";
+import fs from "node:fs";
 
 export default defineEventHandler(async (event) => {
+	// Read the request body
 	const body = await readBody(event);
-	const formData = new FormData();
 
+	// Get the list of files from the specified directory
 	const files = fs.readdirSync("/tmp/files");
+
+	// Find the file that matches the newFilename provided in the body
 	const file = files.find((f) => f === body.file.newFilename);
 
+	// If the file is not found, return an error response
 	if (!file) {
 		return { success: false, message: "File not found" };
 	}
 
+	// Construct the file path
 	const filePath = `/tmp/files/${file}`;
 
-	const stream = fs.createReadStream(filePath);
-	formData.append("file", stream);
+	const fileData = fs.readFileSync(filePath);
+	const blob = new Blob([fileData], { type: "application/pdf" });
 
-	const response = await $fetch("http://lhscr-backend:8080/database/post", {
-		headers: {
-			"Content-Type": "multipart/form-data",
-		},
+	// Create a new FormData instance
+	const formData = new FormData();
+
+	// Append the file stream to the FormData instance
+	formData.append("file", blob);
+
+	// Perform the fetch request to the backend
+	const response = await $fetch("http://backend:8080/database/post", {
 		method: "POST",
 		body: formData,
 	});
 
+	// Log the response from the backend
 	console.log(response);
 
-	return { success: true, message: "File sent", response: response };
+	// Return a success response
+	return { success: true, message: "File sent", file: response };
 });

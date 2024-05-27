@@ -1,4 +1,4 @@
-from fastapi import APIRouter, File, HTTPException, UploadFile
+from fastapi import APIRouter, HTTPException, UploadFile
 
 router = APIRouter(
     prefix="/database",
@@ -8,11 +8,11 @@ router = APIRouter(
 
 
 @router.post("/post", status_code=201, summary="Upload files to Vector Database")
-async def post(body: UploadFile = File(...)):
+async def post(file: UploadFile):
     """
     Upload files to Vector Database
     """
     try:
-        return {"message": "Files uploaded successfully", "file": body}
+        return {"file": file}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

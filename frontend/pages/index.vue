@@ -3,13 +3,13 @@ import { storeToRefs } from "pinia";
 
 const defaultStore = useDefaultStore();
 
+let chat = ref<boolean>(false);
+
 function addFilesToStore(event) {
 	defaultStore.setFiles(event.files);
 
 	console.log("Files added to store");
 }
-
-let chat = ref<boolean>(true);
 
 async function embedFile(file) {
 	const response = await $fetch("/api/embed/pdf", {
@@ -37,11 +37,11 @@ watch(
 
 <template>
 	<div class="flex flex-col justify-center items-center w-full flex-1">
-		<!-- <FileUpload
+		<FileUpload
 			@success="addFilesToStore"
 			v-if="defaultStore.getFiles.length === 0"
-		/> -->
-		<template v-if="chat">
+		/>
+		<template v-else-if="chat">
 			<ScoreStream />
 			<FileManager />
 		</template>
