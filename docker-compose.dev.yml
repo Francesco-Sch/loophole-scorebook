@@ -1,8 +1,8 @@
 services:
-  lhscr-frontend:
+  frontend:
     extends:
       file: docker-compose.yml
-      service: lhscr-frontend
+      service: frontend
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -11,22 +11,37 @@ services:
       - ./frontend:/app
       - /app/node_modules
 
-  lhscr-backend:
+  backend:
     extends:
       file: docker-compose.yml
-      service: lhscr-backend
+      service: backend
     build:
       context: ./backend
       dockerfile: Dockerfile
       target: development
     volumes:
       - ./backend:/code
-  lhscr-vector-db:
+
+  vector-db:
     extends:
       file: docker-compose.yml
-      service: lhscr-vector-db
+      service: vector-db
+
+  inference:
+    extends:
+      file: docker-compose.yml
+      service: inference
+
+  embeddings:
+    extends:
+      file: docker-compose.yml
+      service: embeddings
 
 configs:
   qdrant_config:
     content: |
       log_level: DEBUG
+
+networks:
+  app-network:
+    driver: bridge
