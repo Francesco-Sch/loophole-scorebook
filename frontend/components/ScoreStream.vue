@@ -1,5 +1,9 @@
 <script setup lang="ts">
-const prompt = ref<string>("What do you think of the new ruleset?");
+import { sleep } from "../utils/sleep";
+
+const prompt = ref<string>(
+	"Give me an score for a provocative art piece or performance I could do, that exploits the rules from the ruleset provided in the context."
+);
 const score = ref<string>("");
 
 const streaming = ref<boolean>(false);
@@ -74,17 +78,18 @@ async function fetchScore(prompt: string) {
 }
 
 onMounted(() => {
+	sleep(1000);
 	fetchScore(prompt.value);
 });
 </script>
 
 <template>
-	<div class="w-1/2 max-h-[70%] flex flex-col overflow-hidden my-auto">
+	<div class="w-1/2 max-h-[70dvh] flex flex-col overflow-hidden">
 		<pre
 			class="text-lg whitespace-pre-wrap overflow-auto flex-grow relative scrollbar">{{ score }}<span class="blinking-cursor ml-1" v-show="streaming"> </span></pre>
 		<UButton
 			variant="ghost"
-			class="text-lg text-black mt-7 p-0 hover:bg-transparent hover:underline"
+			class="text-lg text-black mt-7 p-0 w-max hover:bg-transparent hover:underline"
 			icon="i-octicon-arrow-right-24"
 			trailing
 			@click="fetchScore(prompt.value)"
