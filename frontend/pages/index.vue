@@ -50,13 +50,17 @@ watch(
 			v-if="defaultStore.getFiles.length === 0"
 		/>
 		<template v-else-if="analyzing">
-			<p class="my-auto text-neutral-400 text-3xl">
+			<p
+				class="w-full h-full flex items-center justify-center text-neutral-400 text-3xl"
+			>
 				<span class="mx-4">Analyzing the ruleset...</span>
 			</p>
 			<FileManager />
 		</template>
 		<template v-else>
-			<ScoreStream />
+			<div class="w-full h-full flex justify-center items-center">
+				<ScoreStream />
+			</div>
 			<FileManager />
 		</template>
 	</div>

@@ -84,7 +84,7 @@ onMounted(() => {
 </script>
 
 <template>
-	<div class="w-1/2 max-h-[70%] flex flex-col overflow-hidden my-auto">
+	<div class="w-1/2 max-h-[70dvh] flex flex-col overflow-hidden">
 		<pre
 			class="text-lg whitespace-pre-wrap overflow-auto flex-grow relative scrollbar">{{ score }}<span class="blinking-cursor ml-1" v-show="streaming"> </span></pre>
 		<UButton
