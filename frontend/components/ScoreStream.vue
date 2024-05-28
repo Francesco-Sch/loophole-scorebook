@@ -1,5 +1,7 @@
 <script setup lang="ts">
-const prompt = ref<string>("What do you think of the new ruleset?");
+const prompt = ref<string>(
+	"Give me an instructions for a provocative art piece or performance I could do, that exploits the rules from the ruleset provided in the context."
+);
 const score = ref<string>("");
 
 const streaming = ref<boolean>(false);

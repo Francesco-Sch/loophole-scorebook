@@ -55,12 +55,13 @@ llm = ChatOllama(
 
 
 def format_docs(docs):
+    print(docs)
     return "\n\n".join(doc.page_content for doc in docs)
 
 
 rag_chain = (
-    {"context": RunnablePassthrough(), "question": lambda x: x["prompt"]}
-    # {"context": {"context": retriever | format_docs}, "question": RunnablePassthrough()}
+    # {"context": RunnablePassthrough(), "question": lambda x: x["prompt"]}
+    {"context": retriever | format_docs, "question": lambda x: x["prompt"]}
     | custom_rag_prompt
     | llm
     | StrOutputParser()
