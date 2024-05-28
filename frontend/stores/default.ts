@@ -1,6 +1,6 @@
 export const useDefaultStore = defineStore("defaultStore", {
 	state: () => ({
-		files: [],
+		files: [] as File[],
 	}),
 	getters: {
 		getFiles: (state) => state.files,

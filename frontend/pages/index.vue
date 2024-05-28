@@ -2,8 +2,8 @@
 import { storeToRefs } from "pinia";
 
 const defaultStore = useDefaultStore();
-
-let chat = ref<boolean>(false);
+const { files } = storeToRefs(defaultStore);
+let analyzing = ref<boolean>(false);
 
 function addFilesToStore(event) {
 	defaultStore.setFiles(event.files);
@@ -11,7 +11,7 @@ function addFilesToStore(event) {
 	console.log("Files added to store");
 }
 
-async function embedFile(file) {
+async function embedFile(file: File) {
 	const response = await $fetch("/api/embed/pdf", {
 		method: "POST",
 		body: JSON.stringify({ file }),
@@ -41,14 +41,14 @@ watch(
 			@success="addFilesToStore"
 			v-if="defaultStore.getFiles.length === 0"
 		/>
-		<template v-else-if="chat">
-			<ScoreStream />
-			<FileManager />
-		</template>
-		<template v-else>
+		<template v-else-if="analyzing">
 			<p class="my-auto text-neutral-400 text-3xl">
 				<span class="mx-4">Analyzing the ruleset...</span>
 			</p>
+			<FileManager />
+		</template>
+		<template v-else>
+			<ScoreStream />
 			<FileManager />
 		</template>
 	</div>
