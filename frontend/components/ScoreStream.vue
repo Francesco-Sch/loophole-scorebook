@@ -78,7 +78,7 @@ async function fetchScore(prompt: string) {
 }
 
 onMounted(() => {
-	sleep(500);
+	sleep(1000);
 	fetchScore(prompt.value);
 });
 </script>
@@ -89,7 +89,7 @@ onMounted(() => {
 			class="text-lg whitespace-pre-wrap overflow-auto flex-grow relative scrollbar">{{ score }}<span class="blinking-cursor ml-1" v-show="streaming"> </span></pre>
 		<UButton
 			variant="ghost"
-			class="text-lg text-black mt-7 p-0 hover:bg-transparent hover:underline"
+			class="text-lg text-black mt-7 p-0 w-max hover:bg-transparent hover:underline"
 			icon="i-octicon-arrow-right-24"
 			trailing
 			@click="fetchScore(prompt.value)"

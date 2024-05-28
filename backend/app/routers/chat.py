@@ -26,11 +26,11 @@ print("retriever", retriever)
 
 # Me
 template = """You are an artist, that is very keen in writing scores and performing artistic performances.
-Use the following pieces of context to give instructions on how to make an art piece or artistic performance that exploit grey areas inside of the given rules.
+Use the following pieces of context to give create a score on how to make an art piece or artistic performance that exploit grey areas inside of the given rules.
 
 Context: {context}
 
-Write your scores and instructions in a similar style to these:
+Write your score short and poetic similar to the following examples:
 
 TAPE PIECE I
 Stone Piece
@@ -44,6 +44,22 @@ Listen to the clock strokes.
 Make exact repetitions in your head
 after they stop.
 
+Direction
+Arrange to observe a sign indicating
+direction of travel.
+Travel in the indicated direction.
+Travel in another direction.
+1961
+
+Entrance-Exit
+A smooth linear transition from white
+noise to sinus wave tone is broadcast.
+Title is announced at beginning and at end,
+but at end, title is announced by a 
+tape played backward.
+1962
+
+Write no introductory sentence. Answer with the score only.
 
 Question: {question}
 
