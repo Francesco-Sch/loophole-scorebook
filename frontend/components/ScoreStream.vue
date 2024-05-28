@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { sleep } from "../utils/sleep";
+
 const prompt = ref<string>(
-	"Give me an instructions for a provocative art piece or performance I could do, that exploits the rules from the ruleset provided in the context."
+	"Give me an score for a provocative art piece or performance I could do, that exploits the rules from the ruleset provided in the context."
 );
 const score = ref<string>("");
 
@@ -76,6 +78,7 @@ async function fetchScore(prompt: string) {
 }
 
 onMounted(() => {
+	sleep(500);
 	fetchScore(prompt.value);
 });
 </script>
