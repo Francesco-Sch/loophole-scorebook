@@ -5,7 +5,7 @@ const props = defineProps({
 		required: true,
 		default: "File",
 	},
-	processing: {
+	analyzing: {
 		type: Boolean,
 		default: false,
 	},
@@ -23,7 +23,7 @@ const emits = defineEmits(["remove"]);
 		</p>
 
 		<Icon
-			v-if="processing"
+			v-if="analyzing"
 			name="svg-spinners:pulse-3"
 			class="text-emerald-400"
 		/>
