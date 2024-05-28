@@ -25,7 +25,7 @@ async function embedFile(file: File) {
 		},
 	});
 
-	console.log(response);
+	console.log(JSON.stringify(response));
 
 	// Set analyzing to false for this file
 	file.analyzing = false;

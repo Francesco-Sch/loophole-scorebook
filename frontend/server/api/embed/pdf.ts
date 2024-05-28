@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
 		const formData = new FormData();
 
 		// Append the file stream to the FormData instance
-		formData.append("file", blob, body.file.oldFilename);
+		formData.append("file", blob, body.file.newFilename);
 
 		// Perform the fetch request to the backend
 		const response = await $fetch("http://backend:8080/database/post", {

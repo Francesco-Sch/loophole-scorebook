@@ -19,6 +19,7 @@ async def post(file: UploadFile):
     Upload file to Vector Database
     """
     try:
+        print(f"Uploading file: {file.filename}")
         # Save the file to the server
         folder_path = "/media/uploads"
         if not os.path.exists(folder_path):
@@ -30,9 +31,13 @@ async def post(file: UploadFile):
         ###########################
         # LOADING
         ###########################
-        file = PyMuPDFLoader(f"{folder_path}/{file.filename}")
+        pdf_file = PyMuPDFLoader(f"{folder_path}/{file.filename}")
 
-        file_as_document = file.load()
+        file_as_document = pdf_file.load()
+
+        # Loop through each document and set the title
+        for doc in file_as_document:
+            doc.metadata["title"] = file.filename
 
         ###########################
         # CHUNKING
@@ -65,4 +70,5 @@ async def post(file: UploadFile):
             "documents": chunks,
         }
     except Exception as e:
+        print(f"Error: {e}")
         raise HTTPException(status_code=400, detail=str(e))
