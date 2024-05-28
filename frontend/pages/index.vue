@@ -3,7 +3,9 @@ import { storeToRefs } from "pinia";
 
 const defaultStore = useDefaultStore();
 const { files } = storeToRefs(defaultStore);
-let analyzing = ref<boolean>(false);
+const analyzing = computed(() => {
+	return files.value.some((file) => file.analyzing);
+});
 
 function addFilesToStore(event) {
 	defaultStore.setFiles(event.files);
@@ -12,6 +14,9 @@ function addFilesToStore(event) {
 }
 
 async function embedFile(file: File) {
+	// Set analyzing to true for this file
+	file.analyzing = true;
+
 	const response = await $fetch("/api/embed/pdf", {
 		method: "POST",
 		body: JSON.stringify({ file }),
@@ -21,10 +26,13 @@ async function embedFile(file: File) {
 	});
 
 	console.log(response);
+
+	// Set analyzing to false for this file
+	file.analyzing = false;
 }
 
 watch(
-	() => defaultStore.getFiles,
+	() => files.value,
 	(files) => {
 		if (files.length > 0) {
 			files.forEach((file) => {

@@ -6,6 +6,7 @@ declare global {
 		newFilename: string;
 		originalFilename: string;
 		size: number;
+		analyzing?: boolean;
 	}
 }
 
