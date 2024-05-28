@@ -107,14 +107,14 @@ async function uploadFile(event: Event) {
 @keyframes slide-up {
 	0% {
 		opacity: 0;
-		transform: translateY(5%);
+		transform: scale(0.9);
 	}
 	20% {
 		opacity: 0.7;
 	}
 	100% {
 		opacity: 1;
-		transform: translateY(0%);
+		transform: scale(1);
 	}
 }
 </style>
