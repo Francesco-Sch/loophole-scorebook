@@ -82,7 +82,7 @@ def format_docs(docs):
 
 
 def get_relevant_docs(prompt):
-    docs = retriever.invoke("rules", top_k=15)
+    docs = retriever.invoke("rules", top_k=10)
     return docs
 
 
