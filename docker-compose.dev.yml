@@ -22,20 +22,15 @@ services:
     volumes:
       - ./backend:/code
 
-  vector-db:
+  database:
     extends:
       file: docker-compose.yml
-      service: vector-db
+      service: database
 
   inference:
     extends:
       file: docker-compose.yml
       service: inference
-
-  embeddings:
-    extends:
-      file: docker-compose.yml
-      service: embeddings
 
 configs:
   qdrant_config:

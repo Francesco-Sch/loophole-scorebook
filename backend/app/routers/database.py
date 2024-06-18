@@ -62,6 +62,7 @@ async def post(file: UploadFile):
             collection_name=qdrant_collection,
             documents=chunks,
             embedding=embeddings_function,
+            force_recreate=True,
         )
 
         return {

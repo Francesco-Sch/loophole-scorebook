@@ -21,15 +21,13 @@ services:
     environment:
       - OLLAMA_MODEL=${OLLAMA_MODEL}
       - OLLAMA_URL=${OLLAMA_URL}
-      - OLLAMA_EMBEDDING_MODEL=${OLLAMA_EMBEDDING_MODEL}
-      - OLLAMA_EMBEDDING_URL=${OLLAMA_EMBEDDING_URL}
       - QDRANT_URL=${QDRANT_URL}
       - QDRANT_COLLECTION=${QDRANT_COLLECTION}
     networks:
       - app-network
 
-  vector-db:
-    container_name: vector-db
+  database:
+    container_name: database
     image: qdrant/qdrant:latest
     restart: always
     ports:
@@ -59,21 +57,6 @@ services:
       - OLLAMA_HOST=0.0.0.0:11000
     ports:
       - "11000:11000"
-    networks:
-      - app-network
-
-  embeddings:
-    container_name: embeddings
-    build:
-      context: ./embeddings
-      dockerfile: Dockerfile
-    volumes:
-      - ./embeddings/data:/root/.ollama
-    environment:
-      - OLLAMA_MODEL=${OLLAMA_EMBEDDING_MODEL}
-      - OLLAMA_HOST=0.0.0.0:11001
-    ports:
-      - "11001:11001"
     networks:
       - app-network
 
